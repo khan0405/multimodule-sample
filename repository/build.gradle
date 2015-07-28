@@ -1,0 +1,4 @@
+dependencies {
+    compile("org.hibernate:hibernate-core:$ver.hibernate")
+    compile("org.springframework:spring-orm:$ver.spring")
+}

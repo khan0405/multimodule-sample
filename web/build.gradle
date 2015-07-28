@@ -1,0 +1,6 @@
+apply plugin: 'war'
+
+dependencies {
+    provided("jstl:jstl:1.2")
+    compile("org.springframework:spring-webmvc:$ver.spring")
+}
