@@ -1,4 +1,25 @@
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
+// the following closure demonstrates some of the configuration defaults and is not necessary
+querydsl {
+    library = "com.mysema.querydsl:querydsl-apt:$ver.queryDsl"
+    hibernate = true
+    querydslSourcesDir = "src/querydsl/java"
+}
+
 dependencies {
-    compile("org.hibernate:hibernate-core:$ver.hibernate")
+    // spring framework
     compile("org.springframework:spring-orm:$ver.spring")
+    compile("org.springframework.data:spring-data-jpa:$ver.springJpa")
+
+    // hibernate orm
+    compile("org.hibernate:hibernate-core:$ver.hibernate")
+    compile("org.hibernate:hibernate-entitymanager:$ver.hibernate")
+
+    // jdbc
+    compile("org.mariadb.jdbc:mariadb-java-client:1.1.9")
+
+    // dbcp
+    compile("org.hibernate:hibernate-hikaricp:$ver.hibernate")
+
 }
