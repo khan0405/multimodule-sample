@@ -22,4 +22,7 @@ dependencies {
     // dbcp
     compile("org.hibernate:hibernate-hikaricp:$ver.hibernate")
 
+    //querydsl jpa
+    compile("com.mysema.querydsl:querydsl-jpa:$ver.queryDsl")
+
 }
