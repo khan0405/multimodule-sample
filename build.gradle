@@ -21,7 +21,10 @@ ext {
             queryDsl : "3.6.5",
             springSecurity : "4.0.1.RELEASE"
     ]
-
+    queryDsl = [
+            library: "com.mysema.querydsl:querydsl-apt:$ver.queryDsl",
+            hibernate: true
+    ]
 }
 
 allprojects {
@@ -32,6 +35,14 @@ allprojects {
 
     task hello << { task -> println "I'm $task.project.name" }
     task version << { task -> println "$task.project.name:$task.project.version\n$ver" }
+    task propTest << { task -> println 'has enableQueryDsl : '+task.project.ext.has('enableQueryDsl')}
+}
+
+repositories {
+    jcenter()
+    maven {
+        url "http://nexus.dev-khan.net/content/groups/public/"
+    }
 }
 
 subprojects {
@@ -43,13 +54,6 @@ subprojects {
     }
     sourceSets {
         main { compileClasspath += configurations.provided }
-    }
-
-    repositories {
-        jcenter()
-        maven {
-            url "http://nexus.dev-khan.net/content/groups/public/"
-        }
     }
 
     dependencies {
@@ -69,4 +73,15 @@ subprojects {
 
     // source code encoding
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    // querydsl setting...
+    println "$project.name has property enableQueryDsl : " + project.hasProperty('enableQueryDsl')
+    if (project.hasProperty('enableQueryDsl') && project.enableQueryDsl) {
+        apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
+        querydsl {
+            hibernate = queryDsl.hibernate
+            library = "$queryDsl.library"
+        }
+    }
 }

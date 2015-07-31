@@ -1,12 +1,3 @@
-apply plugin: "com.ewerk.gradle.plugins.querydsl"
-
-// the following closure demonstrates some of the configuration defaults and is not necessary
-querydsl {
-    library = "com.mysema.querydsl:querydsl-apt:$ver.queryDsl"
-    hibernate = true
-    querydslSourcesDir = "src/querydsl/java"
-}
-
 dependencies {
     // spring framework
     compile("org.springframework:spring-orm:$ver.spring")
