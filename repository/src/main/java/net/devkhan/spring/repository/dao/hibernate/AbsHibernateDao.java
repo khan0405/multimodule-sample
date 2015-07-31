@@ -10,6 +10,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,14 +18,14 @@ import java.util.List;
  *
  * Created by KHAN on 2015-07-30.
  */
-public class AbsHibernateSessionFactoryDao<T extends BaseModel> implements BaseDao<T> {
+public class AbsHibernateDao<T extends BaseModel> implements BaseDao<T> {
 
     @Autowired
     protected SessionFactory sessionFactory;
 
     private final Class<T> persistenceClass;
 
-    public AbsHibernateSessionFactoryDao(Class<T> persistenceClass) {
+    public AbsHibernateDao(Class<T> persistenceClass) {
         this.persistenceClass = persistenceClass;
     }
 
@@ -43,7 +44,7 @@ public class AbsHibernateSessionFactoryDao<T extends BaseModel> implements BaseD
     }
 
     @Override
-    public <S extends T> List<S> save(Iterable<S> entities) {
+    public <S extends T> List<S> save(Collection<S> entities) {
         entities.forEach(this::save);
         return Lists.newArrayList(entities);
     }
@@ -56,8 +57,8 @@ public class AbsHibernateSessionFactoryDao<T extends BaseModel> implements BaseD
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<T> findAll(Iterable<Long> ids) {
-        return (List<T>) createCriteria().add(Restrictions.in("id", Lists.newArrayList(ids))).list();
+    public List<T> findAll(Collection<Long> ids) {
+        return (List<T>) createCriteria().add(Restrictions.in("id", ids)).list();
     }
 
     @Override
