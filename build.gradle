@@ -75,7 +75,6 @@ subprojects {
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
     // querydsl setting...
-    println "$project.name has property enableQueryDsl : " + project.hasProperty('enableQueryDsl')
     if (project.hasProperty('enableQueryDsl') && project.enableQueryDsl) {
         apply plugin: "com.ewerk.gradle.plugins.querydsl"
 
