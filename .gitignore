@@ -1,7 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
+### Query DSL Genarated folder exclude
+querydsl
+
 ### Gradle template
 .gradle
-build/
+build
 
 # Ignore Gradle GUI config
 gradle-app.setting

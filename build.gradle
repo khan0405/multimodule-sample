@@ -8,17 +8,18 @@ buildscript {
         jcenter()
     }
     dependencies {
-        //classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.5'
+        classpath "com.ewerk.gradle.plugins:querydsl-plugin:1.0.3"
     }
 }
 // 각종 변수 설정
 ext {
     ver = [
-        java : 1.8,
-        spring : "4.1.7.RELEASE",
-        springJpa : "1.8.1.RELEASE",
-        hibernate : "4.3.10.Final",
-        springSecurity : "4.0.1.RELEASE"
+            java : 1.8,
+            spring : "4.1.7.RELEASE",
+            springJpa : "1.8.1.RELEASE",
+            hibernate : "4.3.10.Final",
+            queryDsl : "3.6.5",
+            springSecurity : "4.0.1.RELEASE"
     ]
 
 }
@@ -46,6 +47,9 @@ subprojects {
 
     repositories {
         jcenter()
+        maven {
+            url "http://nexus.dev-khan.net/content/groups/public/"
+        }
     }
 
     dependencies {
@@ -53,12 +57,15 @@ subprojects {
         compile "org.slf4j:slf4j-api:1.7.5"
         compile "org.apache.commons:commons-lang3:3.4"
 
-        testCompile "junit:junit:4.12"
+        compile("org.springframework:spring-context:$ver.spring")
+
+        testCompile("junit:junit:4.12")
+        testCompile("org.springframework:spring-test:$ver.spring")
     }
 
     // source, target compiler version 결정
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     // source code encoding
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
